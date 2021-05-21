@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla de Datos</title>
+    <link rel="stylesheet" href="web_R2.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Tabla de datos utilizando API </h2>
+        <table class="table table-responsive">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Nombre y Apellido</th>
+                    <th>Email</th>
+                    <th>Telefono</th>
+                    <th>Empresa</th>
+                    <th>Dirección</th>
+                </tr>
+            </thead>
+            <tbody id="res">
+
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        res = document.querySelector('#res')
+        res.innerHTML = ''
+        
+        var request = new Request('https://jsonplaceholder.typicode.com/users', {
+                method: 'GET',
+            });
+            fetch(request)
+            .then(res => res.json())
+            .then(data => {
+                for( let item of data){
+                    res.innerHTML += `<table class="table table-responsive">
+                    <tr>
+                        <th>${item.username}</th>
+                        <th>${item.name}</th>
+                        <th>${item.email}</th>
+                        <th>${item.phone}</th>
+                        <th>${item.company.name}</th>
+                        <th>${item.address.city}</th>
+                    </tr>
+
+            `;
+            
+                }
+            })
+
+    </script>
+</body>
+
+</html>
